@@ -1,0 +1,5 @@
+nnunetv2==2.8.0
+dynamic_network_architectures==0.4.4
+SimpleITK==2.5.5
+scipy
+numpy

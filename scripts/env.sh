@@ -1,0 +1,8 @@
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export SCALA_DATA="${SCALA_DATA:-/path/to/CARE-LeftAtrium2026/dataset}"
+export SCALA_WORK="${SCALA_WORK:-/path/to/work}"
+export nnUNet_raw="${nnUNet_raw:-/path/to/nnUNet_raw}"
+export nnUNet_preprocessed="${nnUNet_preprocessed:-/path/to/nnUNet_preprocessed}"
+export nnUNet_results="${nnUNet_results:-/path/to/nnUNet_results}"
+export nnUNet_extTrainer="$REPO/scala/nnunet_ext"
+export PYTHONPATH="$REPO${PYTHONPATH:+:$PYTHONPATH}"
