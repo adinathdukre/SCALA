@@ -184,10 +184,9 @@ docker/                  Dockerfile and build script
 
 ```bibtex
 @inproceedings{rege2026scala,
-  title     = {SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation},
-  author    = {Rege, Atharva Atul and Dukre, Adinath Madhavrao and Shah, Sarth Santosh and Razzak, Imran},
-  booktitle = {CARE Challenge, MICCAI 2026},
-  year      = {2026}
+  title={SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation},
+  author={Rege, Atharva Atul and Dukre, Adinath Madhavrao and Shah, Sarth Santosh and Razzak, Imran},
+  booktitle={CARE 2026: Comprehensive Analysis of REal-world medical images-heart and liver}
 }
 ```
 
