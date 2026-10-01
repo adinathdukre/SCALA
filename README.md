@@ -12,7 +12,7 @@ style="margin-bottom:-10px; display:block;" />
 
 [![Paper](https://img.shields.io/badge/Paper-OpenReview-8C1B13?style=for-the-badge)](https://openreview.net/forum?id=WylqMXauzj)
 [![CARE 2026](https://img.shields.io/badge/CARE_2026-MICCAI_LeftAtrium-147B82?style=for-the-badge)](#-overview)
-[![Oral](https://img.shields.io/badge/CARE_2026-Oral_Presentation-FFB000?style=for-the-badge)](https://openreview.net/forum?id=WylqMXauzj)
+[![Oral](https://img.shields.io/badge/CARE_2026-Oral_(Top_15%25)-FFB000?style=for-the-badge)](https://openreview.net/forum?id=WylqMXauzj)
 [![Weights](https://img.shields.io/badge/HF-Checkpoints-AECBFA?style=for-the-badge&logo=huggingface&logoColor=FFCC00&labelColor=grey)](https://huggingface.co/adidukre/SCALA)
 [![nnU-Net v2](https://img.shields.io/badge/nnU--Net-v2_ResEnc--L-orange?style=for-the-badge)](#-method)
 [![Docker](https://img.shields.io/badge/Docker-Self--tested-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#-docker)
@@ -28,7 +28,7 @@ style="margin-bottom:-10px; display:block;" />
 
 ## 🔥 News
 - **[30 Sep 2026]** 🚀 Code, Docker build and checkpoints for all three CARE LeftAtrium tasks are released.
-- **[24 Aug 2026]** 🎉 Our SCALA paper is accepted as an **oral presentation** at the MICCAI 2026 CARE workshop and published on [OpenReview](https://openreview.net/forum?id=WylqMXauzj).
+- **[24 Aug 2026]** 🎉 Our SCALA paper is accepted as an **oral presentation** (top 15% of all papers) at the MICCAI 2026 CARE workshop and published on [OpenReview](https://openreview.net/forum?id=WylqMXauzj).
 
 ## Overview
 Official code for **SCALA**, our solution to the three tasks of the **MICCAI 2026 CARE LeftAtrium challenge**:
