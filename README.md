@@ -38,6 +38,12 @@ Official code for **SCALA**, our solution to the three tasks of the **MICCAI 202
 | **Task 2** | LGE-MRI | Left atrial cavity segmentation |
 | **Task 3** | CT | Multi-structure segmentation (LA, LAA, PV) |
 
+<p align="center">
+<img src="./docs/assets/fig1_overview.jpg" alt="SCALA overview" width="100%"/>
+<br/>
+<em><b>Fig. 1.</b> Overview. One recipe is instantiated three times and trained separately; the only path between tasks is the out-of-fold cavity prediction that conditions the scar model. Image panels are real slices; the 3D shapes and icons are schematic.</em>
+</p>
+
 ```mermaid
 flowchart LR
     subgraph T2[Task 2: cavity]
@@ -85,6 +91,12 @@ SCALA uses three task-specific residual-encoder nnU-Net pipelines. They share on
 | Hidden test set (organizers) | G-DSC 0.363 | Dice 0.830, HD 22.55 mm | Dice 0.954, HD 9.33 mm |
 
 </div>
+
+<p align="center">
+<img src="./docs/assets/fig2_results.png" alt="Component contributions and the cost of the evaluation grid" width="100%"/>
+<br/>
+<em><b>Fig. 2.</b> (a) Dice contributed by each component against the configuration above it, with each task’s baseline and deployed score in the legend. (b) Surface scar Dice against decision threshold on 15 out-of-fold cases: the evaluation grid costs 0.022 at the deployed threshold and offset voting returns 0.014.</em>
+</p>
 
 ## ⛏️ Installation
 
