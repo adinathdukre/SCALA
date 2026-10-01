@@ -10,13 +10,14 @@ alt="Typing SVG"
 style="margin-bottom:-10px; display:block;" />
 </a>
 
+[![Paper](https://img.shields.io/badge/Paper-OpenReview-8C1B13?style=for-the-badge)](https://openreview.net/forum?id=WylqMXauzj)
 [![CARE 2026](https://img.shields.io/badge/CARE_2026-MICCAI_LeftAtrium-147B82?style=for-the-badge)](#-overview)
 [![Weights](https://img.shields.io/badge/HF-Checkpoints-AECBFA?style=for-the-badge&logo=huggingface&logoColor=FFCC00&labelColor=grey)](https://huggingface.co/adidukre/SCALA)
 [![nnU-Net v2](https://img.shields.io/badge/nnU--Net-v2_ResEnc--L-orange?style=for-the-badge)](#-method)
 [![Docker](https://img.shields.io/badge/Docker-Self--tested-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#-docker)
 [![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FSCALA&label=Views&countColor=%23147b82&style=for-the-badge)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FSCALA)
 
-<h3>🤗 <a href="https://huggingface.co/adidukre/SCALA">Checkpoints</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a></h3>
+<h3>📄 <a href="https://openreview.net/forum?id=WylqMXauzj">Paper</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/adidukre/SCALA">Checkpoints</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a></h3>
 
 **Atharva Atul Rege, [Adinath Madhavrao Dukre](https://github.com/adinathdukre), Sarth Santosh Shah, Imran Razzak**
 
@@ -26,6 +27,7 @@ style="margin-bottom:-10px; display:block;" />
 
 ## 🔥 News
 - **[30 Sep 2026]** 🚀 Code, Docker build and checkpoints for all three CARE LeftAtrium tasks are released.
+- **[24 Aug 2026]** 🎉 Our SCALA paper is **accepted** at the MICCAI 2026 CARE workshop and published on [OpenReview](https://openreview.net/forum?id=WylqMXauzj).
 
 ## Overview
 Official code for **SCALA**, our solution to the three tasks of the **MICCAI 2026 CARE LeftAtrium challenge**:
@@ -265,7 +267,9 @@ If you find our paper and code useful in your research, please cite:
 @inproceedings{rege2026scala,
   title={SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation},
   author={Rege, Atharva Atul and Dukre, Adinath Madhavrao and Shah, Sarth Santosh and Razzak, Imran},
-  booktitle={CARE 2026: Comprehensive Analysis of REal-world medical images-heart and liver}
+  booktitle={CARE 2026: Comprehensive Analysis of REal-world medical images-heart and liver},
+  year={2026},
+  url={https://openreview.net/forum?id=WylqMXauzj}
 }
 ```
 
