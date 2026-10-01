@@ -1,16 +1,69 @@
-# SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation
+<h1 align="center">
+<strong>SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation</strong>
+</h1>
 
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-SCALA%20checkpoints-yellow)](https://huggingface.co/adidukre/SCALA)
+<div align="center">
 
-Official code for **SCALA**, our solution to the three tasks of the MICCAI 2026 CARE LeftAtrium challenge:
+<a href="https://git.io/typing-svg">
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=147B82&center=true&width=560&lines=Three+tasks%2C+one+recipe%2C+no+shared+weights.;Find+the+atrium+first%2C+then+the+scar.;Pseudo-label+the+unlabeled+scans."
+alt="Typing SVG"
+style="margin-bottom:-10px; display:block;" />
+</a>
+
+[![CARE 2026](https://img.shields.io/badge/CARE_2026-MICCAI_LeftAtrium-147B82?style=for-the-badge)](#-overview)
+[![Weights](https://img.shields.io/badge/HF-Checkpoints-AECBFA?style=for-the-badge&logo=huggingface&logoColor=FFCC00&labelColor=grey)](https://huggingface.co/adidukre/SCALA)
+[![nnU-Net v2](https://img.shields.io/badge/nnU--Net-v2_ResEnc--L-orange?style=for-the-badge)](#-method)
+[![Docker](https://img.shields.io/badge/Docker-Self--tested-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#-docker)
+[![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FSCALA&label=Views&countColor=%23147b82&style=for-the-badge)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FSCALA)
+
+<h3>🤗 <a href="https://huggingface.co/adidukre/SCALA">Checkpoints</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a></h3>
+
+**Atharva Atul Rege, [Adinath Madhavrao Dukre](https://github.com/adinathdukre), Sarth Santosh Shah, Imran Razzak**
+
+<img src="https://raw.githubusercontent.com/genmilab/VGS-Decoding/main/docs/assets/genmilab-logo.png" alt="GenMI Lab" height="60"/>
+
+</div>
+
+## 🔥 News
+- **[30 Sep 2026]** 🚀 Code, Docker build and checkpoints for all three CARE LeftAtrium tasks are released.
+
+## Overview
+Official code for **SCALA**, our solution to the three tasks of the **MICCAI 2026 CARE LeftAtrium challenge**:
 
 | Task | Modality | Target |
 |---|---|---|
-| Task 1 | LGE-MRI | Left atrial scar quantification |
-| Task 2 | LGE-MRI | Left atrial cavity segmentation |
-| Task 3 | CT | Multi-structure segmentation (LA, LAA, PV) |
+| **Task 1** | LGE-MRI | Left atrial scar quantification |
+| **Task 2** | LGE-MRI | Left atrial cavity segmentation |
+| **Task 3** | CT | Multi-structure segmentation (LA, LAA, PV) |
 
-## Method
+```mermaid
+flowchart LR
+    subgraph T2[Task 2: cavity]
+        M1[LGE-MRI] --> C1[ResEnc-L + MedNeXt-M] --> C2[Connected-component cleanup]
+    end
+    subgraph T1[Task 1: scar]
+        M2[LGE-MRI] --> L[Cavity localizer] --> R[ROI: LGE, IIR,<br/>signed distance]
+        R --> S1[ResEnc-L + ScarSurface] --> S2[Threshold 0.20<br/>on-wall filter 6 mm]
+    end
+    subgraph T3[Task 3: CT]
+        CT[CT] --> E[ResEnc-L + STU-Net-B] --> V[PV hysteresis<br/>0.50 / 0.25]
+    end
+```
+
+## 📖 Contents
+- [🧠 Method](#-method)
+- [🏆 Results](#-results)
+- [⛏️ Installation](#️-installation)
+- [🧩 Pretrained Checkpoints](#-pretrained-checkpoints)
+- [⚡ Inference](#-inference)
+- [🐳 Docker](#-docker)
+- [🏋️ Training](#️-training)
+- [🗂️ Repository Structure](#️-repository-structure)
+- [📝 Citation](#-citation)
+- [📚 Acknowledgments](#-acknowledgments)
+- [📨 Contact](#-contact)
+
+## 🧠 Method
 
 SCALA uses three task-specific residual-encoder nnU-Net pipelines. They share one training recipe and one deployment path but no parameters.
 
@@ -20,14 +73,18 @@ SCALA uses three task-specific residual-encoder nnU-Net pipelines. They share on
 - **Structure-specific decision rules.** Cavity: connected-component cleanup. CT: double-threshold pulmonary-vein hysteresis (0.50/0.25), keeping only vein branches that touch the LA body. Scar: probability threshold 0.20.
 - **Acquisition-grid correction.** The scar models are planned at 2.5 mm through-plane, but the test images are 1 mm isotropic. We predict at several sub-slice z offsets (the number is set by the spacing ratio) and take the voxel-wise median.
 
-## Results
+## 🏆 Results
+
+<div align="center">
 
 | | Scar (Task 1) | Cavity (Task 2) | CT (Task 3) |
-|---|---|---|---|
+|---|:---:|:---:|:---:|
 | 5-fold cross-validation | surface Dice 0.722 | Dice 0.925 | mean Dice 0.961 |
 | Hidden test set (organizers) | G-DSC 0.363 | Dice 0.830, HD 22.55 mm | Dice 0.954, HD 9.33 mm |
 
-## Installation
+</div>
+
+## ⛏️ Installation
 
 ```bash
 git clone https://github.com/adinathdukre/SCALA.git
@@ -35,10 +92,8 @@ cd SCALA
 pip install -e .
 ```
 
-Tested versions:
-
-- nnU-Net v2.8.0 and dynamic_network_architectures 0.4.4.
-- PyTorch 2.12 for training and PyTorch 2.8 in the Docker image.
+> [!NOTE]
+> Tested with nnU-Net v2.8.0 and dynamic_network_architectures 0.4.4; PyTorch 2.12 for training and PyTorch 2.8 in the Docker image.
 
 Custom trainers are loaded through nnU-Net's `nnUNet_extTrainer` hook, so the nnU-Net installation is never modified. `scripts/env.sh` sets this variable and the nnU-Net paths. Edit the `/path/to/...` defaults in it, or export `SCALA_DATA`, `SCALA_WORK`, `nnUNet_raw`, `nnUNet_preprocessed` and `nnUNet_results` first:
 
@@ -46,7 +101,7 @@ Custom trainers are loaded through nnU-Net's `nnUNet_extTrainer` hook, so the nn
 source scripts/env.sh
 ```
 
-## Pretrained checkpoints
+## 🧩 Pretrained Checkpoints
 
 All checkpoints are on Hugging Face: **[adidukre/SCALA](https://huggingface.co/adidukre/SCALA)**
 
@@ -55,7 +110,7 @@ huggingface-cli download adidukre/SCALA --local-dir /path/to/checkpoints
 ```
 
 | Folder | Task | Training data | Trainer |
-|---|---|---|---|
+|---|:---:|---|---|
 | `cavity_resenc` | 1, 2 | Dataset501 (130 LGE-MRI) | `nnUNetTrainer` (ResEnc-L) |
 | `cavity_mednext` | 2 | Dataset501 | `nnUNetTrainerMedNeXt` |
 | `scar_resenc` | 1 | Dataset512 (60 labeled + 40 pseudo-labeled) | `nnUNetTrainer` (ResEnc-L) |
@@ -65,22 +120,26 @@ huggingface-cli download adidukre/SCALA --local-dir /path/to/checkpoints
 
 Each folder is a standard nnU-Net result folder: `plans.json`, `dataset.json`, and `fold_0` to `fold_4`, each holding `checkpoint_best.pth`.
 
-## Inference
+## ⚡ Inference
 
 ```bash
 python -m scala.predict --task task1 -i /path/to/input -o /path/to/output -m /path/to/checkpoints
 ```
 
-- `--task`: `task1` (scar), `task2` (cavity) or `task3` (CT).
-- `-i`: accepts the challenge layout (`input/taskN/<case>/<image>.nii.gz`), a folder of case subfolders, or a flat folder of `.nii.gz` images.
-- Output follows the challenge naming (`<case>/<id>_pred.nii.gz`), on the input grid, as `uint8`.
-  - Task 1 and Task 2: binary masks.
-  - Task 3: labels `{0: background, 1: LA, 2: LAA, 3: PV}`.
-- Options: `--folds 0,1,2,3,4` (default: all five), `--tta` (mirror TTA, off in our submission), `--device cpu`.
+| Argument | Meaning |
+|---|---|
+| `--task` | `task1` (scar), `task2` (cavity) or `task3` (CT) |
+| `-i` | the challenge layout (`input/taskN/<case>/<image>.nii.gz`), a folder of case subfolders, or a flat folder of `.nii.gz` images |
+| `--folds` | default `0,1,2,3,4` (all five) |
+| `--tta` | mirror TTA, off in our submission |
+| `--device` | e.g. `cpu` |
 
-Task 1 is end-to-end: the cavity is predicted inside the pipeline, so only the LGE image is needed.
+Output follows the challenge naming (`<case>/<id>_pred.nii.gz`), on the input grid, as `uint8`. Task 1 and Task 2 write binary masks; Task 3 writes labels `{0: background, 1: LA, 2: LAA, 3: PV}`.
 
-## Docker
+> [!TIP]
+> Task 1 is end-to-end: the cavity is predicted inside the pipeline, so only the LGE image is needed.
+
+## 🐳 Docker
 
 ```bash
 bash docker/build.sh task1 /path/to/checkpoints scala-task1
@@ -91,13 +150,12 @@ docker run --rm --gpus all -v /path/to/input:/input:ro -v /path/to/output:/outpu
 - The build runs a self-test that loads every model, so a broken image fails at build time.
 - The container falls back to single-process preprocessing when `/dev/shm` is small, so it also works with Docker's default 64 MB.
 
-## Training
+## 🏋️ Training
 
-Place the challenge training data under `$SCALA_DATA`, which should contain the three released task folders. Then run the stages below in order.
+Place the challenge training data under `$SCALA_DATA`, which should contain the three released task folders. Then run the stages below in order. In every `nnUNetv2_train` loop, `F` runs over folds 0 to 4.
 
-In every `nnUNetv2_train` loop, `F` runs over folds 0 to 4.
-
-**1. Convert the data and write the patient-level splits.** Cavity and scar share the same splits.
+<details open>
+<summary><strong>1. Convert the data and write the patient-level splits</strong> (cavity and scar share the same splits)</summary>
 
 ```bash
 source scripts/env.sh
@@ -107,14 +165,20 @@ python -m scala.data.splits --dataset cavity
 python -m scala.data.splits --dataset cardiac
 ```
 
-**2. Train the cavity models (Task 2, and the Task 1 localizer).**
+</details>
+
+<details>
+<summary><strong>2. Train the cavity models</strong> (Task 2, and the Task 1 localizer)</summary>
 
 ```bash
 nnUNetv2_train 501 3d_fullres F -p nnUNetResEncUNetLPlans
 nnUNetv2_train 501 3d_fullres F -p nnUNetResEncUNetLPlans -tr nnUNetTrainerMedNeXt
 ```
 
-**3. Build the scar dataset from out-of-fold cavity predictions, then train the scar teacher.**
+</details>
+
+<details>
+<summary><strong>3. Build the scar dataset from out-of-fold cavity predictions, then train the scar teacher</strong></summary>
 
 ```bash
 python -m scala.data.cavity_oof
@@ -125,7 +189,10 @@ python -m scala.data.splits --dataset scar
 nnUNetv2_train 511 3d_fullres F -p nnUNetResEncUNetLPlans
 ```
 
-**4. Scar self-training and the two scar members (Task 1).**
+</details>
+
+<details>
+<summary><strong>4. Scar self-training and the two scar members</strong> (Task 1)</summary>
 
 ```bash
 python -m scala.semisup.scar_pseudo_label
@@ -135,9 +202,13 @@ nnUNetv2_train 512 3d_fullres F -p nnUNetResEncUNetLPlans
 nnUNetv2_train 512 3d_fullres F -p nnUNetResEncUNetLPlans -tr nnUNetTrainerScarSurface
 ```
 
-**5. CT teacher, self-training and the two CT members (Task 3).**
+</details>
 
-For the STU-Net member, first download the TotalSegmentator-pretrained STU-Net-B weights (`base_ep4k.model`) from the [STU-Net repository](https://github.com/uni-medical/STU-Net).
+<details>
+<summary><strong>5. CT teacher, self-training and the two CT members</strong> (Task 3)</summary>
+
+> [!IMPORTANT]
+> For the STU-Net member, first download the TotalSegmentator-pretrained STU-Net-B weights (`base_ep4k.model`) from the [STU-Net repository](https://github.com/uni-medical/STU-Net).
 
 ```bash
 nnUNetv2_train 521 3d_fullres F -p nnUNetResEncUNetLPlans
@@ -149,11 +220,16 @@ python scripts/train_stunet.py 522 3d_fullres F -p nnUNetResEncUNetLPlans \
     -tr STUNetTrainer_base_ft -pretrained_weights /path/to/base_ep4k.model
 ```
 
-**6. Export slim checkpoints** in the layout `scala.predict` expects:
+</details>
+
+<details>
+<summary><strong>6. Export slim checkpoints</strong> in the layout <code>scala.predict</code> expects</summary>
 
 ```bash
 python scripts/export_checkpoints.py --out /path/to/checkpoints
 ```
+
+</details>
 
 **Training schedule.** We stopped each fold once its EMA pseudo-Dice had plateaued, then kept `checkpoint_best.pth`:
 
@@ -165,22 +241,25 @@ python scripts/export_checkpoints.py --out /path/to/checkpoints
 
 All models were trained on a single 96 GB NVIDIA RTX PRO 6000 Blackwell GPU.
 
-## Repository structure
+## 🗂️ Repository Structure
 
-```
-scala/
-  config.py              paths, dataset names, constants
-  predict.py             inference entry point (CLI and Docker)
-  data/                  conversion, splits, IIR, signed distance, scar dataset builder
-  semisup/               scar and CT pseudo-labeling
-  nnunet_ext/            custom nnU-Net trainers (ScarSurface, MedNeXt, STU-Net)
-  postprocess/           cavity cleanup, CT vein hysteresis, scar on-wall filter
-  inference/             predictors, scar cascade, ensemble pipelines
-scripts/                 environment, STU-Net fine-tuning launcher, checkpoint export
-docker/                  Dockerfile and build script
+```text
+SCALA/
+├── scala/
+│   ├── config.py        # paths, dataset names, constants
+│   ├── predict.py       # inference entry point (CLI and Docker)
+│   ├── data/            # conversion, splits, IIR, signed distance, scar dataset builder
+│   ├── semisup/         # scar and CT pseudo-labeling
+│   ├── nnunet_ext/      # custom nnU-Net trainers (ScarSurface, MedNeXt, STU-Net)
+│   ├── postprocess/     # cavity cleanup, CT vein hysteresis, scar on-wall filter
+│   └── inference/       # predictors, scar cascade, ensemble pipelines
+├── scripts/             # environment, STU-Net fine-tuning launcher, checkpoint export
+└── docker/              # Dockerfile and build script
 ```
 
-## Citation
+## 📝 Citation
+
+If you find our paper and code useful in your research, please cite:
 
 ```bibtex
 @inproceedings{rege2026scala,
@@ -190,12 +269,18 @@ docker/                  Dockerfile and build script
 }
 ```
 
-## Acknowledgements
+## 📚 Acknowledgments
 
 This work builds on:
 
-- [nnU-Net](https://github.com/MIC-DKFZ/nnUNet)
-- [MedNeXt](https://github.com/MIC-DKFZ/MedNeXt). The architecture code in `scala/nnunet_ext/mednext` is adapted from this repository.
-- [STU-Net](https://github.com/uni-medical/STU-Net). The architecture in `scala/nnunet_ext/stunet.py` is adapted from this repository.
+- [**nnU-Net**](https://github.com/MIC-DKFZ/nnUNet): the self-configuring segmentation framework behind every pipeline.
+- [**MedNeXt**](https://github.com/MIC-DKFZ/MedNeXt): the architecture code in `scala/nnunet_ext/mednext` is adapted from this repository.
+- [**STU-Net**](https://github.com/uni-medical/STU-Net): the architecture in `scala/nnunet_ext/stunet.py` is adapted from this repository.
 
 We thank the CARE 2026 organizers for the data and the evaluation.
+
+## 📨 Contact
+For questions or collaboration, please open an [issue](https://github.com/adinathdukre/SCALA/issues) or reach out to [Adinath Madhavrao Dukre](https://github.com/adinathdukre).
+
+> [!IMPORTANT]
+> SCALA is intended for research only. It is not approved for clinical use and must not inform any diagnostic or treatment decision.
