@@ -4,11 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation</title>
-<meta name="description" content="Official code for SCALA, our solution to the three tasks of the MICCAI 2026 CARE LeftAtrium challenge:" />
+<meta name="description" content="Segmenting left atrial structures remains challenging on both magnetic resonance imaging and computed tomography: atrial scar is small and wall-adherent, LGE-MRI intensity carries no absolute scale, acquisition varies between centers, and thin pulmonary veins dominate boundary-based metrics. We intr" />
 <meta name="theme-color" content="#147b82" />
 <meta property="og:title" content="SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation" />
-<meta property="og:description" content="Official code for SCALA, our solution to the three tasks of the MICCAI 2026 CARE LeftAtrium challenge:" />
+<meta property="og:description" content="Segmenting left atrial structures remains challenging on both magnetic resonance imaging and computed tomography: atrial scar is small and wall-adherent, LGE-MRI intensity carries no absolute scale, acquisition varies between centers, and thin pulmonary veins dominate boundary-based metrics. We intr" />
 <meta property="og:type" content="website" />
+<meta property="og:image" content="assets/paper/fig1.png" />
 <meta name="citation_title" content="SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation" />
 <link rel="icon" href="https://raw.githubusercontent.com/genmilab/VGS-Decoding/main/docs/assets/genmilab-logo.png" />
 <link rel="stylesheet" href="project.css" />
@@ -21,7 +22,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="nav-wrap">
 <a class="brand" href="#top">SCALA</a>
-<nav aria-label="Main navigation"><a href="#-method">Method</a><a href="#-results">Results</a><a href="#️-installation">Installation</a><a href="#-pretrained-checkpoints">Checkpoints</a><a href="#-inference">Inference</a><a href="#-citation">Citation</a></nav>
+<nav aria-label="Main navigation"><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#code">Code</a><a href="#citation">BibTeX</a></nav>
 <a class="nav-code" href="https://github.com/adinathdukre/SCALA">GitHub <span aria-hidden="true">↗</span></a>
 </div></header>
 <main id="main">
@@ -35,74 +36,21 @@
 
 
 <p class="hero-description">Three tasks, one recipe, no shared weights.<br />Find the atrium first, then the scar.<br />Pseudo-label the unlabeled scans.</p>
-<div class="resource-links"><a class="button button-primary" href="https://openreview.net/forum?id=WylqMXauzj"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8M8 17h6"/></svg>Paper</a><a class="button button-secondary" href="https://github.com/adinathdukre/SCALA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/></svg>Code</a><a class="button button-secondary" href="https://huggingface.co/adidukre/SCALA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg>Weights <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#-results">Results <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="#-citation">Citation <span aria-hidden="true">↓</span></a></div>
+<div class="resource-links"><a class="button button-primary" href="https://openreview.net/forum?id=WylqMXauzj"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8M8 17h6"/></svg>Paper</a><a class="button button-secondary" href="https://github.com/adinathdukre/SCALA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/></svg>Code</a><a class="button button-secondary" href="https://huggingface.co/adidukre/SCALA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg>Weights <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#results">Results <span aria-hidden="true">↓</span></a><a class="button button-secondary" href="#citation">BibTeX <span aria-hidden="true">↓</span></a></div>
 <div class="hero-meta"><span>CARE 2026 MICCAI LeftAtrium</span></div>
 </section>
-<section class="section container narrow page-section" id="-news"><p class="section-kicker">01 / NEWS</p><h2>News</h2>
-<ul>
-<li><strong>[30 Sep 2026]</strong> 🚀 Code, Docker build and checkpoints for all three CARE LeftAtrium tasks are released.</li>
-<li><strong>[24 Aug 2026]</strong> 🎉 Our SCALA paper is accepted as an <strong>oral presentation</strong> (top 15% of all papers) at the MICCAI 2026 CARE workshop and published on <a href="https://openreview.net/forum?id=WylqMXauzj">OpenReview</a>.</li>
-</ul>
-</section>
-<section class="section container narrow page-section" id="overview"><p class="section-kicker">02 / OVERVIEW</p><h2>Overview</h2>
-<p>Official code for <strong>SCALA</strong>, our solution to the three tasks of the <strong>MICCAI 2026 CARE LeftAtrium challenge</strong>:</p>
-<div class="table-scroll" tabindex="0"><table class="paper-table">
-<thead>
-<tr>
-<th>Task</th>
-<th>Modality</th>
-<th>Target</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Task 1</strong></td>
-<td>LGE-MRI</td>
-<td>Left atrial scar quantification</td>
-</tr>
-<tr>
-<td><strong>Task 2</strong></td>
-<td>LGE-MRI</td>
-<td>Left atrial cavity segmentation</td>
-</tr>
-<tr>
-<td><strong>Task 3</strong></td>
-<td>CT</td>
-<td>Multi-structure segmentation (LA, LAA, PV)</td>
-</tr>
-</tbody>
-</table></div>
-<p align="center">
-<img src="https://raw.githubusercontent.com/adinathdukre/SCALA/main/docs/assets/fig1_overview.jpg" alt="SCALA overview" width="100%"/>
-<br/>
-<em><b>Fig. 1.</b> Overview. One recipe is instantiated three times and trained separately; the only path between tasks is the out-of-fold cavity prediction that conditions the scar model. Image panels are real slices; the 3D shapes and icons are schematic.</em>
-</p>
-
-<pre class="mermaid">flowchart LR
-    subgraph T2[Task 2: cavity]
-        M1[LGE-MRI] --&gt; C1[ResEnc-L + MedNeXt-M] --&gt; C2[Connected-component cleanup]
-    end
-    subgraph T1[Task 1: scar]
-        M2[LGE-MRI] --&gt; L[Cavity localizer] --&gt; R[ROI: LGE, IIR,&lt;br/&gt;signed distance]
-        R --&gt; S1[ResEnc-L + ScarSurface] --&gt; S2[Threshold 0.20&lt;br/&gt;on-wall filter 6 mm]
-    end
-    subgraph T3[Task 3: CT]
-        CT[CT] --&gt; E[ResEnc-L + STU-Net-B] --&gt; V[PV hysteresis&lt;br/&gt;0.50 / 0.25]
-    end
-</pre>
-</section>
-<section class="section container narrow page-section" id="-method"><p class="section-kicker">03 / METHOD</p><h2>Method</h2>
-<p>SCALA uses three task-specific residual-encoder nnU-Net pipelines. They share one training recipe and one deployment path but no parameters.</p>
+<section class="section abstract-section" id="abstract"><div class="container narrow"><p class="section-kicker">01 / ABSTRACT</p><h2>Abstract</h2><div class="abstract-text"><p>Segmenting left atrial structures remains challenging on both magnetic resonance imaging and computed tomography: atrial scar is small and wall-adherent, LGE-MRI intensity carries no absolute scale, acquisition varies between centers, and thin pulmonary veins dominate boundary-based metrics. We introduce <em>SCALA</em>, a semi-supervised cascade for the three tasks of the MICCAI 2026 CARE LeftAtrium challenge, covering atrial scar quantification on LGE-MRI, left atrial cavity segmentation, and multi-structure cardiac CT segmentation. Three task-specific residual-encoder nnU-Net models share one training recipe and one deployment pipeline but no parameters, and are never trained jointly. For scar, an out-of-fold cavity prediction supplies anatomical localization and two derived channels, an intensity ratio normalized by the blood pool and a signed distance to the endocardial surface. We exploit the nested annotation structure through self-training and ensemble complementary members, then convert probability into the reported metric with structure-specific decision rules, an on-wall component filter for scar and a double-threshold vein hysteresis for CT. A residual acquisition-grid mismatch is corrected by sub-slice offset voting fixed by the spacing ratio. Cross-validation gives surface scar Dice <span class="math inline">0.722</span>, cavity Dice <span class="math inline">0.925</span> and CT mean Dice <span class="math inline">0.961</span>, while the hidden test sets return generalized Dice (G-DSC) <span class="math inline">0.363</span> for scar and Dice <span class="math inline">0.830</span> and <span class="math inline">0.954</span> for cavity and CT.</p></div></div></section>
+<section class="figure-section container" id="overview-figure"><figure class="overview-figure"><img src="assets/paper/fig1.png" alt="Figure 1" loading="lazy" /><figcaption><strong>Figure 1.</strong> Overview. One recipe is instantiated three times and trained separately; the only path between tasks is the out-of-fold cavity prediction conditioning the scar model. Image panels are real slices, the 3D shapes and icons schematic.</figcaption></figure></section>
+<section class="section container narrow page-section" id="method"><p class="section-kicker">02 / METHOD</p><h2>Method</h2><p>SCALA uses three task-specific residual-encoder nnU-Net pipelines. They share one training recipe and one deployment path but no parameters.</p>
 <ul>
 <li><strong>Scar cascade (Task 1).</strong> An out-of-fold cavity prediction localizes the atrium. The scar network sees a cropped ROI with three channels: the LGE image, the image intensity ratio (IIR, LGE divided by the blood-pool mean), and the signed distance to the endocardial surface. Two members are averaged: a plain ResEnc-L and a ResEnc-L trained with an extra wall-weighted soft-Dice term. An on-wall filter then removes components more than 6 mm from the cavity.</li>
 <li><strong>Self-training on the nested labels.</strong> Scar: 40 LGE scans that have a cavity label but no scar label are pseudo-labeled by a five-fold teacher. CT: 99 of the 100 unlabeled whole-chest CTs are pseudo-labeled and cropped to the LA complex. Pseudo-labeled cases only ever enter the training folds.</li>
 <li><strong>Heterogeneous ensembles.</strong> Cavity: ResEnc-L + MedNeXt-M. CT: ResEnc-L + STU-Net-B, fine-tuned from TotalSegmentator weights.</li>
 <li><strong>Structure-specific decision rules.</strong> Cavity: connected-component cleanup. CT: double-threshold pulmonary-vein hysteresis (0.50/0.25), keeping only vein branches that touch the LA body. Scar: probability threshold 0.20.</li>
 <li><strong>Acquisition-grid correction.</strong> The scar models are planned at 2.5 mm through-plane, but the test images are 1 mm isotropic. We predict at several sub-slice z offsets (the number is set by the spacing ratio) and take the voxel-wise median.</li>
-</ul>
-</section>
-<section class="section container narrow page-section" id="-results"><p class="section-kicker">04 / RESULTS</p><h2>Results</h2>
-<div align="center">
+</ul></section>
+<section class="section container page-section results-wide" id="results"><div class="narrow"><p class="section-kicker">03 / RESULTS</p><h2>Results from the paper</h2><p class="section-intro">Tables and figures as they appear in the paper.</p></div><figure class="paper-table-figure"><figcaption><strong>Table 1.</strong> LA scar, surface metrics over the 60 out-of-fold cases, means with the standard deviation of the five per-fold means. Best per column in bold. The first four rows use nnU-Net’s default <span class="math inline">0.5</span> threshold, so the operating point is its own step.</figcaption><img src="assets/paper/tab1.png" alt="Table 1" loading="lazy" style="width:min(100%,419px)" /></figure><figure class="paper-figure"><img src="assets/paper/fig2.png" alt="Figure 2" loading="lazy" /><figcaption><strong>Figure 2.</strong> <strong>(a)</strong> Dice contributed by each component against the configuration above it, with each task’s baseline and deployed score in the legend; gains are additive up to rounding, and a component measured at zero is labelled rather than left blank, vein hysteresis being an HD95-only intervention. <strong>(b)</strong> Surface scar Dice against decision threshold on 15 out-of-fold cases: the evaluation grid costs <span class="math inline">0.022</span> at the deployed threshold and offset voting returns <span class="math inline">0.014</span>.</figcaption></figure><figure class="paper-figure"><img src="assets/paper/fig3.png" alt="Figure 3" loading="lazy" /><figcaption><strong>Figure 3.</strong> Manual annotation (top) and deployed prediction (bottom) on the best-scoring case of each task, reconstructed from the out-of-fold probabilities; the teal contour on the scar panels is the out-of-fold cavity.</figcaption></figure></section>
+<section class="section container narrow page-section" id="more-results"><p class="section-kicker">04 / MORE RESULTS</p><h2>More from the code release</h2><details><summary>Results</summary><div align="center">
 <div class="table-scroll" tabindex="0"><table class="paper-table">
 <thead>
 <tr>
@@ -132,10 +80,8 @@
 <img src="https://raw.githubusercontent.com/adinathdukre/SCALA/main/docs/assets/fig2_results.png" alt="Component contributions and the cost of the evaluation grid" width="100%"/>
 <br/>
 <em><b>Fig. 2.</b> (a) Dice contributed by each component against the configuration above it, with each task’s baseline and deployed score in the legend. (b) Surface scar Dice against decision threshold on 15 out-of-fold cases: the evaluation grid costs 0.022 at the deployed threshold and offset voting returns 0.014.</em>
-</p>
-</section>
-<section class="section container narrow page-section" id="️-installation"><p class="section-kicker">05 / INSTALLATION</p><h2>Installation</h2>
-<pre><code class="language-bash">git clone https://github.com/adinathdukre/SCALA.git
+</p></details></section>
+<section class="section container narrow page-section" id="code"><p class="section-kicker">05 / CODE</p><h2>Code and usage</h2><details open><summary>Installation</summary><pre><code class="language-bash">git clone https://github.com/adinathdukre/SCALA.git
 cd SCALA
 pip install -e .
 </code></pre>
@@ -143,10 +89,7 @@ pip install -e .
 
 <p>Custom trainers are loaded through nnU-Net's <code>nnUNet_extTrainer</code> hook, so the nnU-Net installation is never modified. <code>scripts/env.sh</code> sets this variable and the nnU-Net paths. Edit the <code>/path/to/...</code> defaults in it, or export <code>SCALA_DATA</code>, <code>SCALA_WORK</code>, <code>nnUNet_raw</code>, <code>nnUNet_preprocessed</code> and <code>nnUNet_results</code> first:</p>
 <pre><code class="language-bash">source scripts/env.sh
-</code></pre>
-</section>
-<section class="section container narrow page-section" id="-pretrained-checkpoints"><p class="section-kicker">06 / PRETRAINED CHECKPOINTS</p><h2>Pretrained Checkpoints</h2>
-<p>All checkpoints are on Hugging Face: <strong><a href="https://huggingface.co/adidukre/SCALA">adidukre/SCALA</a></strong></p>
+</code></pre></details><details><summary>Pretrained Checkpoints</summary><p>All checkpoints are on Hugging Face: <strong><a href="https://huggingface.co/adidukre/SCALA">adidukre/SCALA</a></strong></p>
 <pre><code class="language-bash">huggingface-cli download adidukre/SCALA --local-dir /path/to/checkpoints
 </code></pre>
 <div class="table-scroll" tabindex="0"><table class="paper-table">
@@ -197,10 +140,7 @@ pip install -e .
 </tr>
 </tbody>
 </table></div>
-<p>Each folder is a standard nnU-Net result folder: <code>plans.json</code>, <code>dataset.json</code>, and <code>fold_0</code> to <code>fold_4</code>, each holding <code>checkpoint_best.pth</code>.</p>
-</section>
-<section class="section container narrow page-section" id="-inference"><p class="section-kicker">07 / INFERENCE</p><h2>Inference</h2>
-<pre><code class="language-bash">python -m scala.predict --task task1 -i /path/to/input -o /path/to/output -m /path/to/checkpoints
+<p>Each folder is a standard nnU-Net result folder: <code>plans.json</code>, <code>dataset.json</code>, and <code>fold_0</code> to <code>fold_4</code>, each holding <code>checkpoint_best.pth</code>.</p></details><details><summary>Inference</summary><pre><code class="language-bash">python -m scala.predict --task task1 -i /path/to/input -o /path/to/output -m /path/to/checkpoints
 </code></pre>
 <div class="table-scroll" tabindex="0"><table class="paper-table">
 <thead>
@@ -233,20 +173,14 @@ pip install -e .
 </tbody>
 </table></div>
 <p>Output follows the challenge naming (<code>&lt;case&gt;/&lt;id&gt;_pred.nii.gz</code>), on the input grid, as <code>uint8</code>. Task 1 and Task 2 write binary masks; Task 3 writes labels <code>{0: background, 1: LA, 2: LAA, 3: PV}</code>.</p>
-<div class="callout callout-tip"><strong>Tip</strong><p>Task 1 is end-to-end: the cavity is predicted inside the pipeline, so only the LGE image is needed.</p></div>
-</section>
-<section class="section container narrow page-section" id="-docker"><p class="section-kicker">08 / DOCKER</p><h2>Docker</h2>
-<pre><code class="language-bash">bash docker/build.sh task1 /path/to/checkpoints scala-task1
+<div class="callout callout-tip"><strong>Tip</strong><p>Task 1 is end-to-end: the cavity is predicted inside the pipeline, so only the LGE image is needed.</p></div></details><details><summary>Docker</summary><pre><code class="language-bash">bash docker/build.sh task1 /path/to/checkpoints scala-task1
 docker run --rm --gpus all -v /path/to/input:/input:ro -v /path/to/output:/output scala-task1
 </code></pre>
 <ul>
 <li>The build copies only the members the task needs.</li>
 <li>The build runs a self-test that loads every model, so a broken image fails at build time.</li>
 <li>The container falls back to single-process preprocessing when <code>/dev/shm</code> is small, so it also works with Docker's default 64 MB.</li>
-</ul>
-</section>
-<section class="section container narrow page-section" id="️-training"><p class="section-kicker">09 / TRAINING</p><h2>Training</h2>
-<p>Place the challenge training data under <code>$SCALA_DATA</code>, which should contain the three released task folders. Then run the stages below in order. In every <code>nnUNetv2_train</code> loop, <code>F</code> runs over folds 0 to 4.</p>
+</ul></details><details><summary>Training</summary><p>Place the challenge training data under <code>$SCALA_DATA</code>, which should contain the three released task folders. Then run the stages below in order. In every <code>nnUNetv2_train</code> loop, <code>F</code> runs over folds 0 to 4.</p>
 <details open="open">
 <summary><strong>1. Convert the data and write the patient-level splits</strong> (cavity and scar share the same splits)</summary>
 <pre><code class="language-bash">source scripts/env.sh
@@ -321,10 +255,7 @@ python scripts/train_stunet.py 522 3d_fullres F -p nnUNetResEncUNetLPlans \
 </tr>
 </tbody>
 </table></div>
-<p>All models were trained on a single 96 GB NVIDIA RTX PRO 6000 Blackwell GPU.</p>
-</section>
-<section class="section container narrow page-section" id="️-repository-structure"><p class="section-kicker">10 / REPOSITORY STRUCTURE</p><h2>Repository Structure</h2>
-<pre><code class="language-text">SCALA/
+<p>All models were trained on a single 96 GB NVIDIA RTX PRO 6000 Blackwell GPU.</p></details><details><summary>Repository Structure</summary><pre><code class="language-text">SCALA/
 ├── scala/
 │   ├── config.py        # paths, dataset names, constants
 │   ├── predict.py       # inference entry point (CLI and Docker)
@@ -335,28 +266,23 @@ python scripts/train_stunet.py 522 3d_fullres F -p nnUNetResEncUNetLPlans \
 │   └── inference/       # predictors, scar cascade, ensemble pipelines
 ├── scripts/             # environment, STU-Net fine-tuning launcher, checkpoint export
 └── docker/              # Dockerfile and build script
-</code></pre>
-</section>
-<section class="section container narrow page-section" id="-acknowledgments"><p class="section-kicker">11 / ACKNOWLEDGMENTS</p><h2>Acknowledgments</h2>
-<p>This work builds on:</p>
-<ul>
-<li><a href="https://github.com/MIC-DKFZ/nnUNet"><strong>nnU-Net</strong></a>: the self-configuring segmentation framework behind every pipeline.</li>
-<li><a href="https://github.com/MIC-DKFZ/MedNeXt"><strong>MedNeXt</strong></a>: the architecture code in <code>scala/nnunet_ext/mednext</code> is adapted from this repository.</li>
-<li><a href="https://github.com/uni-medical/STU-Net"><strong>STU-Net</strong></a>: the architecture in <code>scala/nnunet_ext/stunet.py</code> is adapted from this repository.</li>
-</ul>
-<p>We thank the CARE 2026 organizers for the data and the evaluation.</p>
-</section>
-<section class="section container narrow page-section" id="-contact"><p class="section-kicker">12 / CONTACT</p><h2>Contact</h2>
-<p>For questions or collaboration, please open an <a href="https://github.com/adinathdukre/SCALA/issues">issue</a> or reach out to <a href="https://github.com/adinathdukre">Adinath Madhavrao Dukre</a>.</p>
-<div class="callout callout-important"><strong>Important</strong><p>SCALA is intended for research only. It is not approved for clinical use and must not inform any diagnostic or treatment decision.</p></div>
-</section>
-<section class="section citation-section" id="-citation"><div class="container narrow"><p class="section-kicker">13 / CITATION</p><div class="citation-heading"><h2>Cite this work.</h2><button class="copy-button light-copy" data-copy="bibtex" type="button">Copy BibTeX</button></div><p>If you find our paper and code useful in your research, please cite:</p><pre class="bibtex"><code id="bibtex">@inproceedings{rege2026scala,
+</code></pre></details></section>
+<section class="section citation-section" id="citation"><div class="container narrow"><p class="section-kicker">06 / CITATION</p><div class="citation-heading"><h2>BibTeX</h2><button class="copy-button light-copy" data-copy="bibtex" type="button">Copy BibTeX</button></div><pre class="bibtex"><code id="bibtex">@inproceedings{rege2026scala,
   title={SCALA: Semi-supervised Cascade for Left Atrial Scar, Cavity, and Multi-Structure CT Segmentation},
   author={Rege, Atharva Atul and Dukre, Adinath Madhavrao and Shah, Sarth Santosh and Razzak, Imran},
   booktitle={CARE 2026: Comprehensive Analysis of REal-world medical images-heart and liver},
   year={2026},
   url={https://openreview.net/forum?id=WylqMXauzj}
 }</code></pre></div></section>
+<section class="section container narrow page-section small-section" id="acknowledgments"><h3>Acknowledgments</h3><p>This work builds on:</p>
+<ul>
+<li><a href="https://github.com/MIC-DKFZ/nnUNet"><strong>nnU-Net</strong></a>: the self-configuring segmentation framework behind every pipeline.</li>
+<li><a href="https://github.com/MIC-DKFZ/MedNeXt"><strong>MedNeXt</strong></a>: the architecture code in <code>scala/nnunet_ext/mednext</code> is adapted from this repository.</li>
+<li><a href="https://github.com/uni-medical/STU-Net"><strong>STU-Net</strong></a>: the architecture in <code>scala/nnunet_ext/stunet.py</code> is adapted from this repository.</li>
+</ul>
+<p>We thank the CARE 2026 organizers for the data and the evaluation.</p></section>
+<section class="section container narrow page-section small-section" id="contact"><h3>Contact</h3><p>For questions or collaboration, please open an <a href="https://github.com/adinathdukre/SCALA/issues">issue</a> or reach out to <a href="https://github.com/adinathdukre">Adinath Madhavrao Dukre</a>.</p>
+<div class="callout callout-important"><strong>Important</strong><p>SCALA is intended for research only. It is not approved for clinical use and must not inform any diagnostic or treatment decision.</p></div></section>
 </main>
 <footer class="site-footer"><div class="container">
 <a class="lab-footer" href="https://github.com/genmilab" aria-label="GenMI-Lab on GitHub">
