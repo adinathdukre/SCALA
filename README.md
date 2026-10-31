@@ -11,6 +11,7 @@ style="margin-bottom:-10px; display:block;" />
 </a>
 
 [![Paper](https://img.shields.io/badge/Paper-OpenReview-8C1B13?style=for-the-badge)](https://openreview.net/forum?id=WylqMXauzj)
+[![Project Page](https://img.shields.io/badge/Project-Page-147B82?style=for-the-badge&logo=googlechrome&logoColor=white)](https://adinathdukre.github.io/SCALA/)
 [![CARE 2026](https://img.shields.io/badge/CARE_2026-MICCAI_LeftAtrium-147B82?style=for-the-badge)](#-overview)
 [![Oral](https://img.shields.io/badge/CARE_2026-Oral_(Top_15%25)-FFB000?style=for-the-badge)](https://openreview.net/forum?id=WylqMXauzj)
 [![Weights](https://img.shields.io/badge/HF-Checkpoints-AECBFA?style=for-the-badge&logo=huggingface&logoColor=FFCC00&labelColor=grey)](https://huggingface.co/adidukre/SCALA)
@@ -18,7 +19,7 @@ style="margin-bottom:-10px; display:block;" />
 [![Docker](https://img.shields.io/badge/Docker-Self--tested-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#-docker)
 [![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FSCALA&label=Views&countColor=%23147b82&style=for-the-badge)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FSCALA)
 
-<h3>📄 <a href="https://openreview.net/forum?id=WylqMXauzj">Paper</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/adidukre/SCALA">Checkpoints</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a></h3>
+<h3>📄 <a href="https://openreview.net/forum?id=WylqMXauzj">Paper</a> &nbsp;|&nbsp; 🌐 <a href="https://adinathdukre.github.io/SCALA/">Project Page</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/adidukre/SCALA">Checkpoints</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a></h3>
 
 **Atharva Atul Rege, [Adinath Madhavrao Dukre](https://github.com/adinathdukre), Sarth Santosh Shah, Imran Razzak**
 
