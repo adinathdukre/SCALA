@@ -1,0 +1,64 @@
+{
+ "key": "SCALA",
+ "title": "SCALA: Semi-supervised Cascade for Left Atrial Scar,\nCavity, and Multi-Structure CT Segmentation",
+ "abstract": "Segmenting left atrial structures remains challenging on both magnetic resonance imaging and\ncomputed tomography: atrial scar is small and wall-adherent, LGE-MRI intensity carries no\nabsolute scale, acquisition varies between centers, and thin pulmonary veins dominate\nboundary-based metrics. We\nintroduce \\emph{SCALA}, a semi-supervised cascade for the three tasks of the MICCAI 2026 CARE\nLeftAtrium challenge, covering atrial scar quantification on LGE-MRI, left atrial cavity\nsegmentation, and multi-structure cardiac CT segmentation. Three task-specific residual-encoder\nnnU-Net models share one training recipe and one deployment pipeline but no parameters, and are\nnever trained jointly. For scar, an out-of-fold cavity prediction supplies anatomical\nlocalization and two derived channels, an intensity ratio normalized by the blood pool and a\nsigned distance to the endocardial surface. We exploit the nested annotation structure through\nself-training and ensemble complementary members, then convert probability into the reported\nmetric with structure-specific decision rules, an on-wall component filter for scar and a\ndouble-threshold vein hysteresis for CT. A residual acquisition-grid mismatch is corrected by\nsub-slice offset voting fixed by the spacing ratio.\nCross-validation gives surface scar Dice $0.722$, cavity Dice $0.925$ and CT mean Dice $0.961$,\nwhile the hidden test sets return generalized Dice (\\gdsc) $0.363$ for scar and Dice $0.830$ and\n$0.954$ for cavity and CT.\n\n\\keywords{Left atrial segmentation \\and Atrial scar quantification\n\\and \\mbox{LGE-MRI} \\and Semi-supervised learning \\and nnU-Net}",
+ "macros": "\\newcommand{\\dsc}{DSC}\n\\newcommand{\\sdsc}{sDSC}\n\\newcommand{\\hd}{HD95}\n\\newcommand{\\gdsc}{G\\nobreakdash-DSC}",
+ "figures": [
+  {
+   "files": [
+    "care_fig1.png"
+   ],
+   "caption": "Overview. One recipe is instantiated three times and trained separately; the only path\nbetween tasks is the out-of-fold cavity prediction conditioning the scar model. Image panels are\nreal slices, the 3D shapes and icons schematic.}\n\\label{fig:pipeline",
+   "label": "fig:pipeline",
+   "resolved": [
+    "care_fig1.png"
+   ]
+  },
+  {
+   "files": [
+    "fig_results.png"
+   ],
+   "caption": "\\textbf{(a)} Dice contributed by each component against the configuration above it,\nwith each task's baseline and deployed score in the legend; gains are additive up to rounding, and a\ncomponent measured at zero is labelled rather than left blank, vein hysteresis being an\n\\hd-only intervention. \\textbf{(b)} Surface scar Dice against decision threshold\non 15 out-of-fold cases: the evaluation grid costs $0.022$ at the deployed threshold and offset\nvoting returns $0.014$.}\n\\label{fig:results",
+   "label": "fig:results",
+   "resolved": [
+    "fig_results.png"
+   ]
+  },
+  {
+   "files": [
+    "fig_qualitative.png"
+   ],
+   "caption": "Manual annotation (top) and deployed prediction (bottom) on the best-scoring case of\neach task, reconstructed from the out-of-fold probabilities; the teal contour on the scar panels\nis the out-of-fold cavity.}\n\\label{fig:qual",
+   "label": "fig:qual",
+   "resolved": [
+    "fig_qualitative.png"
+   ]
+  }
+ ],
+ "tables": [
+  {
+   "latex": "[tb]\n\\caption{LA scar, surface metrics over the 60 out-of-fold cases, means with the standard\ndeviation of the five per-fold means. Best per column in bold. The first four rows use nnU-Net's\ndefault $0.5$ threshold, so the operating point is its own step.}\n\\label{tab:scar}\n\\centering\n\\footnotesize\n\\setlength{\\tabcolsep}{5pt}\n\\begin{tabular}{@{}lccc@{}}\n\\toprule\nConfiguration & \\sdsc{} $\\uparrow$ & Sens $\\uparrow$ & Spec $\\uparrow$ \\\\\n\\midrule\nCavity ROI, LGE only                               & 0.656 $\\pm$ 0.052 & 0.623 & \\textbf{0.959} \\\\\n\\quad $+$ IIR channel                              & 0.667 $\\pm$ 0.039 & 0.638 & 0.957 \\\\\n\\quad $+$ signed-distance channel (full input)     & 0.684 $\\pm$ 0.029 & 0.661 & 0.956 \\\\\n\\quad $+$ nested-structure self-training (60$+$40) & 0.714 $\\pm$ 0.029 & 0.694 & 0.958 \\\\\n\\quad $+$ deployed threshold $0.20$                & 0.716 $\\pm$ 0.028 & 0.703 & 0.956 \\\\\n\\quad $+$ wall-weighted second member (deployed) & \\textbf{0.722} $\\pm$ \\textbf{0.022} & \\textbf{0.734} & 0.948 \\\\\n\\bottomrule\n\\end{tabular}",
+   "label": "tab:scar"
+  }
+ ],
+ "sections": [
+  "s:Introduction",
+  "s:Method",
+  "s:What the Three Tasks Share",
+  "s:Task~1: A Metric-Aligned, Cavity-Conditioned Scar Cascade",
+  "s:Task~2: LA Cavity Segmentation",
+  "s:Task~3: Semi-Supervised CT",
+  "s:Data",
+  "s:Experiments and Results",
+  "s:Scar (Task~1)",
+  "s:Cavity (Task~2)",
+  "s:Cardiac CT (Task~3)",
+  "s:What Transferred to the Hidden Test Sets",
+  "s:Discussion and Conclusion"
+ ],
+ "figureFiles": [
+  "care_fig1.png",
+  "fig_results.png",
+  "fig_qualitative.png"
+ ]
+}
